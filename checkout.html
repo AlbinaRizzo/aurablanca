@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Aura Blanca</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Aura Blanca</a>
+      <nav class="nav">
+          <a href="index.html" class="nav-link">Inicio</a>
+        <a href="index.html#productos" class="nav-link">Productos</a>
+        <a href="index.html#contacto" class="nav-link">Contacto</a>
+      </nav>
+      <a href="carrito.html" class="cart-icon" title="Carrito">
+        🛒 <span id="cart-count" class="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Checkout -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Finalizar Compra</h2>
+
+      <div class="checkout-layout">
+        <!-- Formulario -->
+        <form id="checkout-form" class="checkout-form">
+          <h3>Datos de Envío</h3>
+          <div class="form-group">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" required>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" name="direccion" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="ciudad">Ciudad</label>
+              <input type="text" id="ciudad" name="ciudad" required>
+            </div>
+            <div class="form-group">
+              <label for="cp">Código Postal</label>
+              <input type="text" id="cp" name="cp" required>
+            </div>
+          </div>
+
+          <h3>Método de Pago</h3>
+          <div class="payment-methods">
+            <label class="payment-option">
+              <input type="radio" name="pago" value="transferencia" checked>
+              <span>Transferencia Bancaria</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="pago" value="efectivo">
+              <span>Efectivo al recibir</span>
+            </label>
+          </div>
+
+          <!-- Información de pago por transferencia -->
+          <div id="transferencia-info" class="transferencia-info">
+            <h4>Información para Transferencia Bancaria</h4>
+            <div class="bank-details">
+              <p><strong>Banco:</strong> Mercado Pago</p>
+              <p><strong>Titular:</strong> Albina Rizzo</p>
+              <p><strong>CBU:</strong> [Número de CBU]</p>
+              <p><strong>Alias:</strong> ALBINA.RIZZO.MP </p>
+              <p><strong>CUIT/CUIL:</strong> 27-46629164-7</p>
+            </div>
+            <div class="form-group">
+              <label for="comprobante">Comprobante de Pago *</label>
+              <input type="file" id="comprobante" name="comprobante" accept="image/*,.pdf" required>
+              <small class="form-help">Subí una foto o PDF del comprobante de transferencia</small>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Confirmar Pedido</button>
+        </form>
+
+        <!-- Resumen del pedido -->
+        <div class="checkout-summary">
+          <h3>Resumen del Pedido</h3>
+          <div id="checkout-items">
+            <!-- Se llena dinámicamente -->
+          </div>
+          <div class="checkout-total">
+            <span>Total:</span>
+            <span id="checkout-total-price">$0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mensaje de éxito -->
+      <div id="checkout-success" class="checkout-success" style="display:none;">
+        <div class="success-icon">✓</div>
+        <h3>¡Pedido Confirmado!</h3>
+        <p>Gracias por tu compra. Te enviaremos un email con los detalles de tu pedido.</p>
+        <a href="index.html" class="btn btn-primary">Volver a la Tienda</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Aura Blanca. Todos los derechos reservados.</p>
+      <div class="footer-links">
+        <a href="https://instagram.com/aurablanca.oficial" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/549112345678?text=Hola%20Aura%20Blanca" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:hola@aurablanca.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/carrito.js"></script>
+  <script>
+    function renderCheckoutLogo() {
+      var logoAnchor = document.querySelector('.logo');
+      if (!logoAnchor) return;
+      var logo = localStorage.getItem('aurablanca_logo');
+      if (logo) {
+        logoAnchor.innerHTML = '';
+        var img = document.createElement('img');
+        img.src = logo;
+        img.alt = 'Aura Blanca';
+        img.className = 'logo-img';
+        img.onerror = function () {
+          logoAnchor.textContent = 'Aura Blanca';
+        };
+        logoAnchor.appendChild(img);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      renderCheckoutLogo();
+      var cart = JSON.parse(localStorage.getItem('aurablanca_cart') || '[]');
+      var products = JSON.parse(localStorage.getItem('aurablanca_products') || '[]');
+      var checkoutItems = document.getElementById('checkout-items');
+      var checkoutTotal = document.getElementById('checkout-total-price');
+      var checkoutForm = document.getElementById('checkout-form');
+      var checkoutSuccess = document.getElementById('checkout-success');
+
+      if (cart.length === 0) {
+        window.location.href = 'carrito.html';
+        return;
+      }
+
+      var total = 0;
+      checkoutItems.innerHTML = '';
+      cart.forEach(function (item) {
+        var product = products.find(function (p) { return p.id === item.id; });
+        if (!product) return;
+        var subtotal = product.precio * item.cantidad;
+        total += subtotal;
+        var div = document.createElement('div');
+        div.className = 'checkout-item';
+        div.innerHTML =
+          '<div class="checkout-item-info">' +
+            '<span class="checkout-item-name">' + product.nombre + '</span>' +
+            '<span class="checkout-item-qty">x' + item.cantidad + '</span>' +
+          '</div>' +
+          '<span class="checkout-item-price">$' + subtotal.toLocaleString('es-AR') + '</span>';
+        checkoutItems.appendChild(div);
+      });
+      checkoutTotal.textContent = '$' + total.toLocaleString('es-AR');
+
+      // Función para mostrar/ocultar información de transferencia
+      function toggleTransferenciaInfo() {
+        var metodoPago = document.querySelector('input[name="pago"]:checked').value;
+        var transferenciaInfo = document.getElementById('transferencia-info');
+        var comprobanteInput = document.getElementById('comprobante');
+
+        if (metodoPago === 'transferencia') {
+          transferenciaInfo.style.display = 'block';
+          comprobanteInput.required = true;
+        } else {
+          transferenciaInfo.style.display = 'none';
+          comprobanteInput.required = false;
+        }
+      }
+
+      // Event listeners para métodos de pago
+      var paymentOptions = document.querySelectorAll('input[name="pago"]');
+      paymentOptions.forEach(function (option) {
+        option.addEventListener('change', toggleTransferenciaInfo);
+      });
+
+      // Inicializar estado
+      toggleTransferenciaInfo();
+
+      checkoutForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var metodoPago = document.querySelector('input[name="pago"]:checked').value;
+
+        // Validar comprobante si es transferencia
+        if (metodoPago === 'transferencia') {
+          var comprobanteInput = document.getElementById('comprobante');
+          if (!comprobanteInput.files || !comprobanteInput.files[0]) {
+            alert('Por favor, subí el comprobante de pago para continuar.');
+            return;
+          }
+        }
+
+        var order = {
+          id: Date.now(),
+          fecha: new Date().toLocaleString('es-AR'),
+          cliente: {
+            nombre: document.getElementById('nombre').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            telefono: document.getElementById('telefono').value.trim(),
+            direccion: document.getElementById('direccion').value.trim(),
+            ciudad: document.getElementById('ciudad').value.trim(),
+            cp: document.getElementById('cp').value.trim()
+          },
+          pago: metodoPago,
+          items: cart.map(function (item) {
+            var product = products.find(function (p) { return p.id === item.id; });
+            return {
+              id: item.id,
+              nombre: product ? product.nombre : 'Producto eliminado',
+              precio: product ? product.precio : 0,
+              cantidad: item.cantidad
+            };
+          }),
+          total: total,
+          estado: 'Pendiente'
+        };
+
+        // Procesar comprobante si existe
+        if (metodoPago === 'transferencia') {
+          var comprobanteInput = document.getElementById('comprobante');
+          var file = comprobanteInput.files[0];
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            order.comprobante = e.target.result;
+            saveOrder(order);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          saveOrder(order);
+        }
+
+        function saveOrder(orderData) {
+          var orders = JSON.parse(localStorage.getItem('aurablanca_orders') || '[]');
+          orders.push(orderData);
+          localStorage.setItem('aurablanca_orders', JSON.stringify(orders));
+
+          localStorage.removeItem('aurablanca_cart');
+          checkoutForm.style.display = 'none';
+          document.querySelector('.checkout-summary').style.display = 'none';
+          checkoutSuccess.style.display = 'block';
+          updateCartCount();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

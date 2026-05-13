@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aura Blanca — Tienda Online</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Aura Blanca</a>
+      <nav class="nav">
+          <a href="index.html" class="nav-link active">Inicio</a>
+        <a href="#productos" class="nav-link">Productos</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+      </nav>
+      <a href="carrito.html" class="cart-icon" title="Carrito">
+        🛒 <span id="cart-count" class="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Bienvenida a <span class="highlight">Aura Blanca</span></h1>
+      <p>Descubrí productos únicos seleccionados con amor y dedicación.</p>
+      <a href="#productos" class="btn btn-primary">Ver Productos</a>
+    </div>
+  </section>
+
+
+  <!-- Productos -->
+  <section id="productos" class="section section-productos">
+    <div class="container">
+      <h2 class="section-title">Nuestros Productos</h2>
+
+      <!-- Filtros -->
+      <div class="filters">
+        <button class="filter-btn active" data-category="todos">Todos</button>
+      </div>
+
+      <!-- Grid de productos -->
+      <div id="product-grid" class="product-grid">
+        <!-- Se llena dinámicamente desde tienda.js -->
+      </div>
+    </div>
+  </section>
+
+    <!-- Novedades -->
+  <section class="section section-novedades">
+    <div class="container">
+      <h2 class="section-title">Novedades</h2>
+      <div class="carousel">
+        <div class="carousel-container">
+          <!-- Se llena dinámicamente desde tienda.js -->
+        </div>
+        <button class="carousel-btn carousel-btn-prev" aria-label="Imagen anterior">‹</button>
+        <button class="carousel-btn carousel-btn-next" aria-label="Imagen siguiente">›</button>
+        <div class="carousel-indicators">
+          <!-- Se llena dinámicamente -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Contacto -->
+  <section id="contacto" class="section">
+    <div class="container">
+      <h2 class="section-title">Contacto</h2>
+      <p style="text-align:center; max-width: 700px; margin: 0 auto; color: var(--text-light);">
+        Si querés saber más sobre nuestros productos, escribinos y te responderemos a la brevedad.
+      </p>
+      <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap; margin-top:32px;">
+        <div style="min-width:260px; padding:24px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+          <h3 style="margin-bottom:12px;">Email</h3>
+          <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWsmDPKMqxRKStGkTbgsfgdclblsDhXXxGJMdzdjdsJzFGzsJpgdpTtjRPpchCzjGDRqlkkxl" style="color: var(--text);">aurablanca.al@gmail.com</a>
+        </div>
+        <div style="min-width:260px; padding:24px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+          <h3 style="margin-bottom:12px;">WhatsApp</h3>
+          <a href="https://wa.me/549112345678?text=Hola%20Aura%20Blanca" target="_blank" rel="noopener" style="color: var(--text);">+54 9 11 1234 5678</a>
+        </div>
+        <div style="min-width:260px; padding:24px; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+          <h3 style="margin-bottom:12px;">Instagram</h3>
+          <a href="https://www.instagram.com/aurablanca.al" target="_blank" rel="noopener" style="color: var(--text);">@aurablanca.al</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Aura Blanca. Todos los derechos reservados.</p>
+      <div class="footer-links">
+        <a href="https://www.instagram.com/aurablanca.al/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/549112345678?text=Hola%20Aura%20Blanca" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://mail.google.com/mail/u/0/#inbox?compose=DmwnWsmDPKMqxRKStGkTbgsfgdclblsDhXXxGJMdzdjdsJzFGzsJpgdpTtjRPpchCzjGDRqlkkxl">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal para imágenes del carrusel -->
+  <div id="image-modal" class="image-modal">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close" aria-label="Cerrar">&times;</button>
+      <div class="modal-body">
+        <img id="modal-image" src="" alt="" class="modal-img">
+        <div class="modal-info">
+          <h3 id="modal-title"></h3>
+          <p id="modal-description"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/tienda.js"></script>
+</body>
+</html>

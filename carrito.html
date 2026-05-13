@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito — Aura Blanca</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Aura Blanca</a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="index.html#productos" class="nav-link">Productos</a>
+        <a href="index.html#contacto" class="nav-link">Contacto</a>
+      </nav>
+      <a href="carrito.html" class="cart-icon active" title="Carrito">
+        🛒 <span id="cart-count" class="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Carrito -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Tu Carrito</h2>
+
+      <div id="cart-empty" class="cart-empty" style="display:none;">
+        <p>Tu carrito está vacío.</p>
+        <a href="index.html" class="btn btn-primary">Seguir Comprando</a>
+      </div>
+
+      <div id="cart-content" class="cart-content" style="display:none;">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cart-items">
+            <!-- Se llena dinámicamente -->
+          </tbody>
+        </table>
+
+        <div class="cart-summary">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total-price">$0</span>
+          </div>
+          <div class="cart-actions">
+            <a href="index.html" class="btn btn-secondary">Seguir Comprando</a>
+            <a href="checkout.html" class="btn btn-primary">Finalizar Compra</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Aura Blanca. Todos los derechos reservados.</p>
+      <div class="footer-links">
+        <a href="https://instagram.com/aurablanca.oficial" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/549112345678?text=Hola%20Aura%20Blanca" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:hola@aurablanca.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function renderCartLogo() {
+      var logoAnchor = document.querySelector('.logo');
+      if (!logoAnchor) return;
+      var logo = localStorage.getItem('aurablanca_logo');
+      if (logo) {
+        logoAnchor.innerHTML = '';
+        var img = document.createElement('img');
+        img.src = logo;
+        img.alt = 'Aura Blanca';
+        img.className = 'logo-img';
+        img.onerror = function () {
+          logoAnchor.textContent = 'Aura Blanca';
+        };
+        logoAnchor.appendChild(img);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCartLogo);
+  </script>
+  <script src="js/carrito.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producto — Aura Blanca</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Aura Blanca</a>
+      <nav class="nav">
+          <a href="index.html" class="nav-link">Inicio</a>
+        <a href="index.html#productos" class="nav-link">Productos</a>
+        <a href="index.html#contacto" class="nav-link">Contacto</a>
+      </nav>
+      <a href="carrito.html" class="cart-icon" title="Carrito">
+        🛒 <span id="cart-count" class="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Detalle del producto -->
+  <section class="section">
+    <div class="container">
+      <a href="index.html" class="back-link">← Volver a la tienda</a>
+      <div id="product-detail" class="product-detail">
+        <!-- Se llena dinámicamente desde producto.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Aura Blanca. Todos los derechos reservados.</p>
+      <div class="footer-links">
+        <a href="https://instagram.com/aurablanca.oficial" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/549112345678?text=Hola%20Aura%20Blanca" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:hola@aurablanca.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/producto.js"></script>
+</body>
+</html>

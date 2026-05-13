@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Aura Blanca</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Aura Blanca</a>
+      <nav class="nav">
+      <a href="admin.html" class="nav-link active">Admin</a>
+      </nav>
+      <a href="carrito.html" class="cart-icon" title="Carrito">
+        🛒 <span id="cart-count" class="cart-count">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Panel Admin -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Panel de Administración</h2>
+
+      <div class="admin-logo-card">
+        <h3>Logo del sitio</h3>
+        <p style="color: var(--text-light); margin-bottom: 16px;">Subí una imagen para que el logo se muestre en la página principal.</p>
+        <div class="form-group">
+          <label for="logo-input">Seleccionar imagen</label>
+          <input type="file" id="logo-input" accept="image/*">
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary" id="btn-upload-logo">Guardar logo</button>
+        </div>
+        <div id="logo-preview" class="logo-preview">
+          <p style="color:#6b6b6b;">No hay logo cargado todavía.</p>
+        </div>
+      </div>
+
+      <!-- Gestión de Novedades -->
+      <div class="admin-novedades-card">
+        <h3 id="novedades-form-title">Agregar Novedad</h3>
+        <form id="novedades-form" class="admin-form">
+          <input type="hidden" id="novedad-id">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="novedad-titulo">Título</label>
+              <input type="text" id="novedad-titulo" required>
+            </div>
+            <div class="form-group">
+              <label for="novedad-descripcion">Descripción</label>
+              <input type="text" id="novedad-descripcion" placeholder="Breve descripción" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="novedad-imagen">Imagen de la Novedad</label>
+            <input type="file" id="novedad-imagen" accept="image/*" required>
+          </div>
+          <div id="novedad-image-preview" class="logo-preview" style="display:none;">
+            <p>Vista previa:</p>
+            <img id="novedad-preview-img" style="max-height: 120px; border-radius: 8px;">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="btn-save-novedad">Guardar Novedad</button>
+            <button type="button" class="btn btn-secondary" id="btn-cancel-novedad" style="display:none;">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Lista de novedades -->
+      <div class="admin-novedades-list">
+        <h3>Novedades Registradas (<span id="novedades-count">0</span>)</h3>
+        <div id="admin-novedades-list" class="admin-novedades-grid">
+          <!-- Se llena dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Formulario agregar/editar producto -->
+      <div class="admin-form-card">
+        <h3 id="form-title">Agregar Producto</h3>
+        <form id="product-form" class="admin-form">
+          <input type="hidden" id="product-id">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prod-nombre">Nombre</label>
+              <input type="text" id="prod-nombre" required>
+            </div>
+            <div class="form-group">
+              <label for="prod-precio">Precio ($)</label>
+              <input type="number" id="prod-precio" min="0" step="0.01" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="prod-descripcion">Descripción</label>
+            <textarea id="prod-descripcion" rows="3" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prod-imagen">Imagen del Producto</label>
+              <input type="file" id="prod-imagen" accept="image/*" required>
+            </div>
+            <div class="form-group">
+              <label for="prod-categoria">Categoría</label>
+              <input type="text" id="prod-categoria" placeholder="Ej: Velas, Accesorios" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="prod-stock">Stock</label>
+            <input type="number" id="prod-stock" min="0" value="10" required>
+          </div>
+          <div id="product-image-preview" class="logo-preview" style="display:none;">
+            <p>Vista previa:</p>
+            <img id="product-preview-img" style="max-height: 120px; border-radius: 8px;">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="btn-save">Guardar Producto</button>
+            <button type="button" class="btn btn-secondary" id="btn-cancel" style="display:none;">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Lista de productos -->
+      <div class="admin-products">
+        <h3>Productos Registrados (<span id="product-count">0</span>)</h3>
+        <div id="admin-product-list" class="admin-product-list">
+          <!-- Se llena dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Pedidos -->
+      <div class="admin-orders" style="margin-top:48px;">
+        <h3>Pedidos Recibidos (<span id="order-count">0</span>)</h3>
+        <div id="admin-order-list" class="admin-order-list">
+          <!-- Se llena dinámicamente -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Aura Blanca. Todos los derechos reservados.</p>
+      <div class="footer-links">
+        <a href="https://instagram.com/aurablanca.oficial" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/549112345678?text=Hola%20Aura%20Blanca" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:hola@aurablanca.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
